@@ -7,7 +7,7 @@ output_dir = Path.cwd() / "Output" # criando um diretorio no mesmo caminho do sc
 output_dir.mkdir(parents=True, exist_ok=True) # parametros parents= true para caso as pastas pais nao existam, entao serao criadas. porem se ja existirem e para nao retornar um erro o existes_ok ira ignorar o erro
 
 outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI") # basicamente fazendo uma conexao com a API de mensagens da Microsoft Outlook
-inbox = outlook.Folders.Item("mary.castro@csu.com.br").Folders.Item("Caixa de Entrada").Folders.Item("CSU_BKO_Pendentes")
+inbox = outlook.Folders.Item("your@email.com.br").Folders.Item("Caixa de Entrada").Folders.Item("Pasta_Desejada")
 
 # 2
 def zip_processing():
@@ -23,3 +23,7 @@ for item in inbox.Items:
             if attachments.FileName.endswith(".zip"):
                 arquivo_zip = os.path.join(output_dir, attachments.FileName) # acessando a pasta que será salva temporariamente os arquivos
                 attachments.SaveAsFile(arquivo_zip)
+                zip_processing()
+                for file in os.listdir(output_dir):
+                    if file.endswith(".zip"):
+                        os.remove()
